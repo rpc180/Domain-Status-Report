@@ -56,7 +56,7 @@ catch [System.Runtime.InteropServices.COMException]
 
 
 #Convert log to html
-$newestfile = dir | sort-object -property creationtime -descending | select-object -first 1
+$newestfile = Get-ChildItem | sort-object -property creationtime -descending | select-object -first 1
 $data = get-content $newestfile | where-object{![string]::IsNullOrWhiteSpace($_)}
 $tabledata = $data | select-object -skip 3
 $style = @"
