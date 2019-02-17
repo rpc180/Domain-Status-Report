@@ -56,7 +56,7 @@ catch [System.Runtime.InteropServices.COMException]
 
 
 #Convert log to html
-$newestfile = dir | sort -property creationtime -descending | select-object -first 1
+$newestfile = get-childitem | sort-object -property creationtime -descending | select-object -first 1
 $data = get-content $newestfile | where-object{![string]::IsNullOrWhiteSpace($_)}
 $tabledata = $data | select-object -skip 3
 $style = @"
@@ -82,7 +82,7 @@ $smtpserver = ""  #FILL IN
 $emailsender = ""  #FILL IN
 $emailrecipient = ""  #FILL IN or use $recipientlist
 $emailsubject = "Domain Status Report"
-$newestfile = dir | sort -property creationtime -descending | select-object -first 1
+$newestfile = get-childitem | sort-object -property creationtime -descending | select-object -first 1
 $emailbody = $newestfile
 
 send-mailmessage -to $emailrecipient -from $emailsender -subject $emailsubject -body $emailbody -BodyAsHtml -smtpserver $smtpserver
